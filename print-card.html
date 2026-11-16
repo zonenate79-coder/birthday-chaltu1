@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print Surprise Card 🎁</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    @media print {
+      body {
+        background: white !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-card-wrapper {
+        box-shadow: none !important;
+        border: 2px dashed #f47285 !important;
+        margin: 0 auto !important;
+      }
+    }
+    .font-script { font-family: 'Caveat', cursive; }
+    .font-handwriting { font-family: 'Patrick Hand', cursive; }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-10 px-4 flex flex-col items-center justify-center font-sans">
+
+  <!-- Control Bar (Hidden when printing) -->
+  <div class="no-print max-w-md w-full bg-white p-5 rounded-3xl shadow-lg border border-slate-200 mb-8 space-y-4">
+    <div class="flex items-center justify-between">
+      <h2 class="text-base font-bold text-slate-800">Print Physical Gift Card 🖨️</h2>
+      <button onclick="window.print()" class="px-5 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold text-xs shadow-md shadow-rose-200 flex items-center gap-1.5">
+        <span>Print Card (Ctrl+P)</span>
+      </button>
+    </div>
+
+    <div>
+      <label class="block text-xs font-semibold text-slate-600 mb-1">Website URL for the QR code:</label>
+      <input type="text" id="target-url" placeholder="https://yourdomain.com/diya" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:border-rose-400 outline-none">
+      <p class="text-[11px] text-slate-400 mt-1">When hosted online (Netlify/GitHub/Vercel), paste the link here. It defaults to your local page.</p>
+    </div>
+  </div>
+
+  <!-- Physical Gift Card to Print -->
+  <div class="print-card-wrapper bg-white max-w-sm w-full p-8 sm:p-10 rounded-[32px] shadow-2xl border border-rose-200 text-center relative overflow-hidden">
+    <!-- Decorative Corner Flowers -->
+    <div class="absolute -top-6 -right-6 text-5xl opacity-40 select-none">🌸</div>
+    <div class="absolute -bottom-6 -left-6 text-5xl opacity-40 select-none">🌸</div>
+
+    <div class="text-xs uppercase tracking-widest text-rose-400 font-bold mb-2">A Special Surprise For You</div>
+    
+    <h1 class="text-4xl sm:text-5xl font-script font-bold text-[#e11d48] mb-1" id="card-name">
+      Happy Birthday, Diya! 🌸
+    </h1>
+
+    <p class="font-handwriting text-base text-[#6d5e57] mb-6">
+      Open your phone camera & scan below:
+    </p>
+
+    <!-- QR Code Box -->
+    <div class="p-4 rounded-3xl bg-[#fff5f6] border-2 border-dashed border-[#fecdd3] inline-block shadow-inner mb-6">
+      <div id="card-qrcode" class="flex justify-center"></div>
+    </div>
+
+    <div class="space-y-1">
+      <h3 class="font-script text-3xl font-bold text-[#2d2522]">✨ Scan Me ✨</h3>
+      <p class="text-xs text-rose-500 font-medium">A little corner of the internet, made with love.</p>
+    </div>
+  </div>
+
+  <script src="EDIT-HERE.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const isBlue = typeof THEME_COLOR !== "undefined" && THEME_COLOR.toLowerCase() === "blue";
+      const icon = isBlue ? "⭐" : "🌸";
+      const darkColor = isBlue ? "#1e40af" : "#be123c";
+      const lightBg = isBlue ? "#eff6ff" : "#fff5f6";
+
+      document.getElementById("card-name").textContent = `Happy Birthday, ${BIRTHDAY_NAME}! ${icon}`;
+      if (isBlue) {
+        document.getElementById("card-name").style.color = "#1d4ed8";
+      }
+
+      const defaultUrl = window.location.href.replace("print-card.html", "index.html");
+      const urlInput = document.getElementById("target-url");
+      urlInput.value = defaultUrl;
+
+      let qrInstance = new QRCode(document.getElementById("card-qrcode"), {
+        text: defaultUrl,
+        width: 170,
+        height: 170,
+        colorDark: darkColor,
+        colorLight: lightBg,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      urlInput.addEventListener("input", () => {
+        const val = urlInput.value.trim() || defaultUrl;
+        document.getElementById("card-qrcode").innerHTML = "";
+        new QRCode(document.getElementById("card-qrcode"), {
+          text: val,
+          width: 170,
+          height: 170,
+          colorDark: darkColor,
+          colorLight: lightBg,
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      });
+    });
+  </script>
+</body>
+</html>

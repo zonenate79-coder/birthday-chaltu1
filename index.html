@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth intro-locked">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="tab-title">For You 🌸</title>
+
+  <!-- ⚡ LOAD CONFIG FIRST — sets theme & title BEFORE CSS paints, eliminates pink flash -->
+  <script src="EDIT-HERE.js?v=12"></script>
+  <script>
+    // Apply theme & title instantly before any CSS is rendered — no flash!
+    (function() {
+      var theme = (typeof THEME_COLOR !== "undefined" && THEME_COLOR.toLowerCase() === "blue") ? "blue" : "pink";
+      document.documentElement.setAttribute("data-theme", theme);
+      if (typeof BIRTHDAY_NAME !== "undefined" && BIRTHDAY_NAME) {
+        var floral = theme === "blue" ? "💙" : "🌸";
+        var title = (typeof PAGE_TITLE !== "undefined" && PAGE_TITLE) 
+          ? PAGE_TITLE.replace(/\b(Sarah|Diya)\b/gi, BIRTHDAY_NAME).replace(/\{name\}/gi, BIRTHDAY_NAME)
+          : ("For " + BIRTHDAY_NAME + " " + floral);
+        if (theme === "blue") {
+          title = title.replace(/🌸/g, "💙").replace(/💖/g, "💙").replace(/💕/g, "💙");
+        }
+        document.title = title;
+      }
+    })();
+  </script>
+
+  <!-- Google Fonts: Handwritten & Soft Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css?v=12">
+</head>
+<body class="text-[#3d3430] min-h-screen relative selection:bg-blue-100 selection:text-blue-900 intro-locked" style="background-color: var(--bg-primary)">
+
+  <!-- Floating Falling Sakura Petals & Hearts -->
+  <div id="petals-container"></div>
+
+  <!-- ==================== 1. INTRO / WELCOME SCREEN ==================== -->
+  <section id="intro-screen" class="fixed inset-0 z-50 h-[100dvh] w-screen overflow-hidden flex flex-col justify-start select-none touch-none" style="background-color: var(--bg-primary);">
+    <!-- Top Accent Banner (Matches Diya Reference) -->
+    <div class="w-full h-[25vh] sm:h-[28vh] bg-[var(--theme-banner)] flex-shrink-0"></div>
+
+    <!-- Center Intro Content with Large Text & Left-Aligned Layout (Matches Diya Reference) -->
+    <div class="flex-1 flex flex-col items-start justify-center px-7 sm:px-10 max-w-sm sm:max-w-md mx-auto w-full py-4 text-left">
+      <h2 id="intro-heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--theme-dark)] font-handwriting mb-1 text-left fade-in-stagger delay-1">
+        HAPPY BIRTHDAY!
+      </h2>
+      <h1 id="intro-name" class="text-5xl sm:text-6xl font-bold text-[#222222] font-handwriting mb-4 sm:mb-5 leading-tight text-left fade-in-stagger delay-2">
+        Diya
+      </h1>
+      
+      <!-- Romantic Note (Large text, left-aligned like Diya) -->
+      <p id="intro-paragraph" class="text-[#2d2522] text-xl sm:text-2xl leading-relaxed font-handwriting mb-7 text-left w-full fade-in-stagger delay-3">
+        For the love of my life, To the girl I love the most int this whole world, To the girl that makes my day brighter everyday just by being you, Diya
+      </p>
+
+      <!-- Button (Matches Diya: soft rectangular pill with border & shadow, left-aligned) -->
+      <button id="enter-btn" class="font-handwriting text-lg sm:text-xl font-bold px-7 py-3 rounded-xl bg-[var(--theme-btn-bg)] border border-[var(--theme-btn-border)] shadow-[2px_3px_0px_var(--theme-btn-border)] hover:brightness-95 active:translate-y-0.5 active:shadow-[1px_1px_0px_var(--theme-btn-border)] transition-all text-[#2a2421] fade-in-stagger delay-4 inline-flex items-center gap-1.5 cursor-pointer">
+        <span id="intro-btn-text">Come in 💖</span>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <div id="main-content" class="opacity-0 transition-opacity duration-700">
+
+    <!-- Top Sticky Navigation (Matches Image: Diya on Left, Underlined Contents on Right) -->
+    <header class="sticky top-0 z-40 backdrop-blur-md border-b border-[var(--theme-card-border)]/50 theme-nav-bg">
+      <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+        <span id="nav-brand" class="font-script text-2xl font-bold theme-accent-color">Diya</span>
+
+        <!-- Quick Jump / Contents Menu (Pure text with clean underline) -->
+        <div class="relative">
+          <button id="contents-btn" class="font-handwriting text-xl text-[#2d2522] underline underline-offset-4 decoration-1 decoration-[#2d2522]/80 hover:opacity-75 transition-opacity">
+            Contents
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div id="contents-dropdown" class="hidden absolute right-0 mt-2 w-56 rounded-2xl shadow-xl p-2 z-50 text-sm" style="background-color: var(--bg-primary); border: 1px solid var(--theme-card-border);">
+            <a href="#our-story" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Our story 📖</a>
+            <a href="#photo-memories" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Photo memories 📷</a>
+            <a href="#things-i-love" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Things I love about you 💕</a>
+            <a href="#memory-jar" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Memory jar 🫙</a>
+            <a href="#open-when" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Open when... 💌</a>
+            <a href="#music-section" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Songs that remind me of you 🎵</a>
+            <a href="#bucket-list" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">Things we still have to do ✨</a>
+            <a href="#final-letter" id="nav-link-final" class="block px-3 py-2 rounded-xl hover:bg-[var(--theme-pill-bg)] text-slate-700 transition-colors">That's the story so far. 🌸</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="w-full">
+
+      <!-- ==================== 2. OUR STORY TIMELINE ==================== -->
+      <section id="our-story" class="py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-10 text-center sm:text-left">
+            <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522]">Our story 📖</h2>
+            <p class="text-sm text-[#7d6e68] mt-1 font-light">The moments, in order, more or less.</p>
+          </div>
+
+          <div class="relative pl-8 sm:pl-10 border-l-2 space-y-10 ml-4 sm:ml-6" id="story-timeline" style="border-color: var(--theme-timeline-line);">
+            <!-- Timeline events injected dynamically -->
+          </div>
+        </div>
+      </section>
+            <!-- Timeline events injected dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. PHOTO MEMORIES (POLAROIDS) ==================== -->
+      <section id="photo-memories" class="section-deep py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-10 text-center sm:text-left">
+            <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522]">Photo memories 📷</h2>
+            <p class="text-sm text-[#7d6e68] mt-1 font-light">Tap a photo to look closer.</p>
+          </div>
+
+          <div id="polaroids-grid" class="flex flex-col items-center gap-6 pt-4">
+            <!-- Polaroids injected dynamically from photo-memories/ -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. THINGS I LOVE ABOUT YOU ==================== -->
+      <section id="things-i-love" class="py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-8 text-center sm:text-left">
+            <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522]">Things I love about you 💕</h2>
+            <p class="text-sm text-[#7d6e68] mt-1 font-light">Tap one to read the rest.</p>
+          </div>
+
+          <div id="love-accordion-container" class="space-y-3">
+            <!-- Accordions injected dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 5. MEMORY JAR ==================== -->
+      <section id="memory-jar" class="section-deep py-14 sm:py-20 px-4 sm:px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-4">
+            <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522]">Memory jar 🫙</h2>
+            <p class="text-base text-[#6d5e57] font-handwriting mt-1">Tap the jar. It picks for you.</p>
+          </div>
+
+          <div class="flex flex-col items-center justify-center">
+            <!-- Illustrated Memory Jar (Matches Image 4) -->
+            <div id="jar-interactive" class="cursor-pointer group relative p-3 transition-transform hover:scale-105 active:scale-95" title="Click to open a memory!">
+              <svg class="w-40 h-52 sm:w-44 sm:h-56 filter drop-shadow-md mx-auto" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Jar Cap -->
+                <rect x="42" y="8" width="76" height="18" rx="4" fill="var(--theme-jar-cap)" />
+                <!-- Jar Body -->
+                <path d="M30 42C30 36 36 32 44 32H116C124 32 130 36 130 42L136 175C136 186 127 195 116 195H44C33 195 24 186 24 175L30 42Z" fill="white" fill-opacity="0.88" stroke="var(--theme-jar-stroke)" stroke-width="2.5"/>
+                <!-- Central Label -->
+                <rect x="42" y="90" width="76" height="32" rx="3" fill="white" stroke="var(--theme-jar-stroke)" stroke-width="1.2"/>
+                <text x="80" y="112" font-family="'Patrick Hand', cursive" font-size="16" fill="#2d2522" text-anchor="middle" font-weight="bold">memories</text>
+                <!-- Folded Paper Slips (Inside bottom) -->
+                <rect x="48" y="148" width="24" height="18" rx="2" fill="#fed7aa" transform="rotate(-15 48 148)" />
+                <rect x="74" y="154" width="26" height="20" rx="2" fill="#fecdd3" transform="rotate(8 74 154)" />
+                <rect x="94" y="142" width="24" height="18" rx="2" fill="#fef08a" transform="rotate(-10 94 142)" />
+                <rect x="62" y="162" width="26" height="18" rx="2" fill="#e9d5ff" transform="rotate(18 62 162)" />
+              </svg>
+              <div id="jar-pill" class="mt-2 text-xs font-handwriting px-3.5 py-1 rounded-full inline-block theme-pill transition-colors">
+                ✨ Tap to pick a memory
+              </div>
+            </div>
+
+            <!-- Memory Display Area (Pops out from jar, hidden until tapped) -->
+            <div id="jar-result" class="hidden mt-6 max-w-xs sm:max-w-sm w-full transition-all duration-500 transform scale-95 opacity-0">
+              <div class="polaroid-card text-center">
+                <div class="polaroid-tape"></div>
+                <img id="jar-img" src="" alt="Memory" class="w-full h-56 object-cover rounded mb-3 shadow-inner">
+                <span id="jar-label" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold font-handwriting theme-accent-color mb-1">[MEMORY 1]</span>
+                <p id="jar-caption" class="font-handwriting text-base text-[#4a3b32]"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 6. OPEN WHEN LETTERS (POSTA) ==================== -->
+      <section id="open-when" class="py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-8 text-center sm:text-left">
+            <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522]">Open when... 💌</h2>
+            <p class="text-base text-[#6d5e57] font-handwriting mt-1">Letters for the days you need one.</p>
+          </div>
+
+          <!-- Vertical Envelope Stack (Matches Image 3) -->
+          <div id="envelopes-grid" class="space-y-4 sm:space-y-5 max-w-[340px] mx-auto w-full">
+            <!-- Envelope cards injected dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 7. SONGS THAT REMIND ME OF YOU ==================== -->
+      <section id="music-section" class="section-deep py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+          <!-- Header with Title on Left & Vinyl on Right -->
+          <div class="flex items-start justify-between gap-4 mb-4 max-w-xl mx-auto">
+            <div>
+              <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522] leading-tight">
+                Songs that remind me of you 🎵
+              </h2>
+              <p class="text-base text-[#6d5e57] font-handwriting mt-2 leading-relaxed">
+                Music starts when you come in. ✨<br>Use the player to pause, mute or adjust speed.
+              </p>
+            </div>
+            <!-- Spinning Vinyl Record -->
+            <div class="vinyl-record mt-1 flex-shrink-0" id="vinyl-disc"></div>
+          </div>
+
+          <!-- Browser Native Audio Player with nodownload (has Mute, Speed, Seek, Time) -->
+          <div class="mt-6 max-w-xl mx-auto">
+            <audio id="bg-audio" controls controlslist="nodownload" preload="auto" class="custom-audio block mx-auto">
+              <source src="music/song.mp4" type="video/mp4">
+              <source src="music/song.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 8. THINGS WE STILL HAVE TO DO (BUCKET LIST) ==================== -->
+      <section id="bucket-list" class="section-deep py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-8 text-center sm:text-left">
+            <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-[#2d2522]">Things we still have to do ✨</h2>
+            <p class="text-sm text-[#7d6e68] mt-1 font-light">Tick them off as we go.</p>
+          </div>
+
+          <div class="p-6 sm:p-8 rounded-3xl bg-white/80 border border-[var(--theme-card-border)] shadow-lg shadow-black/5 max-w-xl mx-auto">
+            <div id="bucket-items-container" class="space-y-4">
+              <!-- Checklist items injected dynamically -->
+            </div>
+            
+            <div class="mt-6 pt-4 border-t border-[var(--theme-card-border)] flex items-center justify-between text-xs text-[#7d6e68]">
+              <span id="bucket-counter" class="font-medium">2 of 6 done</span>
+              <span id="bucket-quote" class="font-handwriting text-base theme-accent-color">To many more adventures together 🌸</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 9. THAT'S THE STORY SO FAR (THE LOVE LETTER) ==================== -->
+      <section id="final-letter" class="section-final py-16 sm:py-24 px-4 sm:px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+          <!-- Large bold heading like the Diya reference photo -->
+          <h2 id="final-heading" class="text-5xl sm:text-6xl md:text-7xl font-bold font-handwriting text-[#2d2522] mb-8 leading-tight">
+            That's the story so far. 🌸
+          </h2>
+          
+          <button id="reveal-letter-btn" class="px-7 py-3 rounded-xl font-handwriting font-bold text-base transition-all mb-8 shadow-sm theme-pill-btn border-2">
+            <span>One last thing... 💌</span>
+          </button>
+
+          <!-- Revealed Love Letter -->
+          <div id="letter-container" class="hidden max-w-xl mx-auto letter-paper p-8 sm:p-12 rounded-3xl text-left transition-all duration-700 relative">
+            <p class="font-script text-2xl font-bold theme-accent-color mb-6" id="letter-salutation">Diya,</p>
+            
+            <div id="letter-paragraphs" class="space-y-5 text-sm sm:text-base leading-relaxed text-[#4a3b32] font-light">
+              <!-- Injected dynamically -->
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-[var(--theme-card-border)]/70 text-right">
+              <p id="letter-signature" class="font-script text-2xl sm:text-3xl theme-accent-color">Your Lover, Your Boyfriend Kofi</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-24 py-12 text-center text-xs text-[#7d6e68] border-t border-[var(--theme-card-border)]/50">
+      <p id="footer-text">Made by hand for Diya 💖 • A few things are tucked away here.</p>
+    </footer>
+
+  </div>
+
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Lightbox Modal for Polaroids -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden select-none">
+    <div class="relative bg-white rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl flex flex-col items-center">
+      <button id="lightbox-close" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <img id="lightbox-img" src="" alt="Enlarged photo" class="max-h-[55vh] max-w-full rounded-xl shadow-inner object-contain mb-3 mt-4">
+
+      <p id="lightbox-caption" class="font-handwriting text-lg text-[#3d3430] text-center mb-4 px-2"></p>
+
+      <!-- Bottom Navigation: Prev, Counter, Next (Theme-aware: blue in blue mode, pink in pink mode) -->
+      <div class="flex items-center justify-between w-full pt-3 border-t" style="border-color: var(--theme-card-border);">
+        <button id="lightbox-prev" class="theme-pill-btn px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          <span>Prev</span>
+        </button>
+
+        <span class="text-xs font-bold tracking-wider theme-accent-color" id="lightbox-counter">1 of 6</span>
+
+        <button id="lightbox-next" class="theme-pill-btn px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+          <span>Next</span>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Envelope Letter Reading Modal -->
+  <div id="letter-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-[#fffbf8] border border-[var(--theme-card-border)] rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button id="close-letter-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <h3 id="modal-letter-title" class="font-handwriting text-2xl theme-accent-color font-bold mb-4 pr-6"></h3>
+      <div id="modal-letter-content" class="text-sm leading-relaxed text-[#4a3b32] whitespace-pre-line font-light"></div>
+    </div>
+  </div>
+
+  <!-- Load Config & Script -->
+  <script src="EDIT-HERE.js?v=12"></script>
+  <script src="app.js?v=12"></script>
+</body>
+</html>

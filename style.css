@@ -1,0 +1,377 @@
+/* ===================================================================
+ * 🌸 FOR DIYA / SARAH - STYLESHEET (Match Video & Screenshots)
+ * =================================================================== */
+
+:root, [data-theme="pink"] {
+  --bg-primary: #fdf7f4;
+  --bg-deep: #fce8ee;
+  --theme-banner: #e8a5b0;
+  --theme-accent: #e11d48;
+  --theme-dark: #6a2b35;
+  --theme-btn-bg: #f0bcc5;
+  --theme-btn-border: #d48b97;
+  --theme-envelope-bg: #e4a5af;
+  --theme-envelope-flap: #d9929f;
+  --theme-jar-cap: #9e4453;
+  --theme-jar-stroke: #c97584;
+  --theme-dot: #f47285;
+  --theme-timeline-line: #fca5a5;
+  --theme-pill-bg: #fce7ea;
+  --theme-pill-border: #f8b4be;
+  --theme-card-border: #fecdd3;
+}
+
+[data-theme="blue"] {
+  --bg-primary: #f7fbff;
+  --bg-deep: #e1edf7;
+  --theme-banner: #adcff0;
+  --theme-accent: #2563eb;
+  --theme-dark: #1e3a8a;
+  --theme-btn-bg: #d8ecfb;
+  --theme-btn-border: #a8ccee;
+  --theme-envelope-bg: #c0d9f0;
+  --theme-envelope-flap: #a8c8e8;
+  --theme-jar-cap: #2f5c8f;
+  --theme-jar-stroke: #6fa0cc;
+  --theme-dot: #38bdf8;
+  --theme-timeline-line: #93c5fd;
+  --theme-pill-bg: #e0f2fe;
+  --theme-pill-border: #93c5fd;
+  --theme-card-border: #bfdbfe;
+}
+
+/* Theme-aware color utility class */
+.theme-accent-color {
+  color: var(--theme-accent);
+}
+
+/* Section with darker background band (Deep rose in pink / Deep blue in blue) */
+.section-deep {
+  background-color: var(--bg-deep);
+}
+
+/* Final "That's the story so far" section — richer/darker pink or blue, matches reference */
+.section-final {
+  background-color: var(--theme-banner);
+}
+
+/* Theme-aware pill buttons & badges */
+.theme-pill {
+  color: var(--theme-accent);
+  background-color: var(--theme-pill-bg);
+  border: 1px solid var(--theme-pill-border);
+}
+
+.theme-pill-btn {
+  background-color: var(--theme-pill-bg);
+  color: var(--theme-accent);
+  border: 1px solid var(--theme-pill-border);
+  transition: all 0.25s ease;
+}
+
+.theme-pill-btn:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+/* Nav background follows theme */
+.theme-nav-bg {
+  background-color: var(--bg-primary);
+  opacity: 0.95;
+}
+
+body {
+  font-family: 'Patrick Hand', 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-primary);
+  color: #3d3430;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Lock scroll while intro screen is visible (Stuck like Diya reference) */
+html.intro-locked, body.intro-locked {
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+  position: fixed !important;
+  touch-action: none !important;
+  -webkit-overflow-scrolling: auto !important;
+  overscroll-behavior: none !important;
+}
+
+#intro-screen {
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+}
+
+/* Handwriting & Script Fonts */
+.font-handwriting {
+  font-family: 'Patrick Hand', 'Caveat', cursive;
+}
+
+.font-script {
+  font-family: 'Caveat', cursive;
+}
+
+.font-serif-soft {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Floating Sakura Petals / Hearts Animation */
+#petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  background: radial-gradient(circle at 40% 40%, #ffccd5, #ffb3c1);
+  border-radius: 15px 1px 15px 1px;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: fallDown linear infinite;
+  filter: drop-shadow(0 2px 4px rgba(244, 114, 133, 0.2));
+}
+
+.petal.heart {
+  background: transparent;
+  font-size: 16px;
+  border-radius: 0;
+  animation: floatHeart linear infinite;
+}
+
+@keyframes fallDown {
+  0% {
+    transform: translateY(-20px) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) translateX(80px);
+    opacity: 0;
+  }
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(-20px) rotate(-15deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(105vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* Staggered Intro Text Fade-In */
+.fade-in-stagger {
+  opacity: 0;
+  animation: fadeInSlow 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInSlow {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.55s; }
+.delay-3 { animation-delay: 0.95s; }
+.delay-4 { animation-delay: 1.35s; }
+.delay-5 { animation-delay: 1.65s; }
+
+/* Polaroid Card Styles */
+.polaroid-card {
+  background: #ffffff;
+  padding: 10px 10px 18px 10px;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px -4px rgba(60, 40, 35, 0.1), 0 3px 6px -2px rgba(60, 40, 35, 0.05);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  cursor: pointer;
+}
+
+.polaroid-card:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 16px 26px -6px rgba(244, 114, 133, 0.22);
+  z-index: 5;
+}
+
+/* Washi Tape Accent on Polaroids (Matches Video/Photo: pale tape) */
+.polaroid-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 16px;
+  background: rgba(246, 233, 203, 0.92);
+  border-left: 2px dashed rgba(255, 255, 255, 0.7);
+  border-right: 2px dashed rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Envelope Card Styles (Matches Image 3 "Posta") */
+.envelope-card {
+  background: var(--theme-envelope-bg);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  height: 145px;
+  box-shadow: 0 4px 12px rgba(60, 40, 35, 0.08);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+  width: 100%;
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+.envelope-card:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 8px 20px rgba(60, 40, 35, 0.14);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 65%;
+  background: var(--theme-envelope-flap);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.06));
+  pointer-events: none;
+}
+
+/* Vinyl Record (Matches Image 2) */
+@keyframes spinRecord {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.vinyl-record {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1a1a1a 20%, #333333 40%, #1a1a1a 45%, #2a2a2a 70%, #111111 100%);
+  border: 2px solid #111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.vinyl-record::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: var(--theme-envelope-bg);
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+}
+
+.vinyl-spinning {
+  animation: spinRecord 4s linear infinite;
+}
+
+/* Memory Jar Wiggle */
+@keyframes jarWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.jar-wiggle {
+  animation: jarWiggle 0.5s ease-in-out;
+}
+
+/* Custom Native Audio styling for smooth pill look */
+audio.custom-audio {
+  width: 100%;
+  max-width: 440px;
+  height: 46px;
+  border-radius: 9999px;
+  outline: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
+}
+
+/* Checkbox Style */
+.check-icon i {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.custom-checkbox:checked + label .check-icon {
+  background-color: var(--theme-accent);
+  border-color: var(--theme-accent);
+  color: white;
+}
+
+.custom-checkbox:checked + label .check-icon i {
+  opacity: 1 !important;
+}
+
+.custom-checkbox:checked + label span.task-text {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* Smooth letter paper styling */
+.letter-paper {
+  background: #ffffff;
+  background-image: 
+    linear-gradient(#f7edf0 1px, transparent 1px);
+  background-size: 100% 32px;
+  box-shadow: 0 15px 35px -5px rgba(225, 29, 72, 0.08), 0 5px 15px rgba(0,0,0,0.03);
+  border: 1px solid rgba(244, 114, 133, 0.15);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-card-border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-pill-border);
+}
